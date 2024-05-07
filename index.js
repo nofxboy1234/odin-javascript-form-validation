@@ -1,49 +1,45 @@
-// There are many ways to pick a DOM node; here we get the form itself and the email
-// input box, as well as the span element into which we will place the error message.
 const form = document.querySelector("form");
 const email = document.getElementById("mail");
-const emailError = document.querySelector("#mail + span.error");
+const error = email.nextElementSibling;
 
-email.addEventListener("input", (event) => {
-  // Each time the user types something, we check if the
-  // form fields are valid.
+// As per the HTML Specification
+const emailRegExp =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  if (email.validity.valid) {
-    // In case there is an error message visible, if the field
-    // is valid, we remove the error message.
-    emailError.textContent = ""; // Reset the content of the message
-    emailError.className = "error"; // Reset the visual state of the message
+// Now we can rebuild our validation constraint
+// Because we do not rely on CSS pseudo-class, we have to
+// explicitly set the valid/invalid class on our email field
+window.addEventListener("load", () => {
+  // Here, we test if the field is empty (remember, the field is not required)
+  // If it is not, we check if its content is a well-formed email address.
+  const isValid = email.value.length === 0 || emailRegExp.test(email.value);
+  email.className = isValid ? "valid" : "invalid";
+});
+
+// This defines what happens when the user types in the field
+email.addEventListener("input", () => {
+  const isValid = email.value.length === 0 || emailRegExp.test(email.value);
+  if (isValid) {
+    email.className = "valid";
+    error.textContent = "";
+    error.className = "error";
   } else {
-    // If there is still an error, show the correct error
-    showError();
+    email.className = "invalid";
   }
 });
 
+// This defines what happens when the user tries to submit the data
 form.addEventListener("submit", (event) => {
-  // if the email field is valid, we let the form submit
-  if (!email.validity.valid) {
-    // If it isn't, we display an appropriate error message
-    showError();
-    // Then we prevent the form from being sent by canceling the event
-    event.preventDefault();
+  event.preventDefault();
+
+  const isValid = email.value.length === 0 || emailRegExp.test(email.value);
+  if (!isValid) {
+    email.className = "invalid";
+    error.textContent = "I expect an email, darling!";
+    error.className = "error active";
+  } else {
+    email.className = "valid";
+    error.textContent = "";
+    error.className = "error";
   }
 });
-
-function showError() {
-  if (email.validity.valueMissing) {
-    // If the field is empty,
-    // display the following error message.
-    emailError.textContent = "You need to enter an email address.";
-  } else if (email.validity.typeMismatch) {
-    // If the field doesn't contain an email address,
-    // display the following error message.
-    emailError.textContent = "Entered value needs to be an email address.";
-  } else if (email.validity.tooShort) {
-    // If the data is too short,
-    // display the following error message.
-    emailError.textContent = `Email should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
-  }
-
-  // Set the styling appropriately
-  emailError.className = "error active";
-}
