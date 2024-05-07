@@ -9,14 +9,16 @@
   </head>
   <body>
     <form>
-      <p>
-        <label for="mail">
-          <span>Please enter an email address:</span>
-          <input type="text" id="mail" name="mail" />
-          <span class="error" aria-live="polite"></span>
-        </label>
-      </p>
-      <button>Submit</button>
+      <label for="ZIP">ZIP : </label>
+      <input type="text" id="ZIP" />
+      <label for="Country">Country : </label>
+      <select id="Country">
+        <option value="ch">Switzerland</option>
+        <option value="fr">France</option>
+        <option value="de">Germany</option>
+        <option value="nl">The Netherlands</option>
+      </select>
+      <input type="submit" value="Validate" />
     </form>
   </body>
 </html>
