@@ -10,3 +10,7 @@ input:focus:invalid {
 .error {
   background-color: rgb(255, 163, 163);
 }
+
+.error.active {
+  padding: 0.3rem;
+}
