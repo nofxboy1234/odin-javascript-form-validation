@@ -16,6 +16,8 @@ form.addEventListener("submit", (event) => {
     showError();
     event.preventDefault();
   }
+
+  alert("Submit to nowhere successful!");
 });
 
 function showError() {
