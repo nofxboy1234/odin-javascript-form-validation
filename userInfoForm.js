@@ -15,6 +15,7 @@ form.addEventListener("submit", (event) => {
   if (!email.validity.valid) {
     showError();
     event.preventDefault();
+    return;
   }
 
   alert("Submit to nowhere successful!");
