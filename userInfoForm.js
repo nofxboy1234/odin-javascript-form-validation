@@ -2,13 +2,21 @@ const form = document.querySelector("form");
 const email = document.getElementById("mail");
 const emailError = document.querySelector(".error");
 
-email.addEventListener("input", (event) => {
+function checkEmailValidity() {
   if (email.validity.valid) {
     emailError.textContent = "";
     emailError.className = "error";
   } else {
     showError();
   }
+}
+
+// email.addEventListener("input", (event) => {
+//   checkEmailValidity();
+// });
+
+email.addEventListener("focusout", (event) => {
+  checkEmailValidity();
 });
 
 form.addEventListener("submit", (event) => {
