@@ -12,13 +12,13 @@
       <div>
         <label for="mail">Email: </label>
         <input id="mail" name="email" type="email" minlength="8" required />
-        <span class="error"></span>
+        <span class="error" id="email-error"></span>
       </div>
 
       <div>
         <label for="zip">Zip Code: </label>
-        <input id="zip" name="zipcode" type="text" />
-        <span class="error"></span>
+        <input id="zip" class="invalid" name="zipcode" type="text" />
+        <span class="error" id="zipcode-error"></span>
       </div>
 
       <div>
@@ -29,7 +29,7 @@
           <option value="de">Germany</option>
           <option value="nl">The Netherlands</option>
         </select>
-        <span class="error"></span>
+        <span class="error" id="country-error"></span>
       </div>
 
       <div>

@@ -1,9 +1,8 @@
-input:valid {
+#mail:valid {
   background-color: greenyellow;
 }
 
 input:invalid {
-  border-color: red;
   background-color: rgb(255, 163, 163);
 }
 
@@ -11,10 +10,22 @@ input:focus:invalid {
   outline: none;
 }
 
+.invalid {
+  background-color: rgb(255, 163, 163);
+}
+
+.valid {
+  background-color: greenyellow;
+}
+
 .error {
   background-color: rgb(255, 163, 163);
 }
 
 .error.active {
-  padding: 0.3rem;
+  /* padding: 0.3rem; */
 }
+
+/* #zip {
+  background-color: rgb(255, 163, 163);
+} */
