@@ -34,10 +34,8 @@ function checkZip() {
     zipcode.classList.add("valid");
     zipcodeError.textContent = "";
     zipcodeError.className = "error";
-    // zipcode.setCustomValidity("");
   } else {
     showError();
-    // zipcode.setCustomValidity(constraints[country.value][1]);
   }
 }
 
