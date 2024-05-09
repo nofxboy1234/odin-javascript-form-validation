@@ -70,7 +70,12 @@ const zipcode = document.getElementById("zip");
 const zipcodeError = document.getElementById("zipcode-error");
 
 const country = document.getElementById("country");
-const countryError = document.getElementById("country-error");
+
+const password = document.getElementById("password");
+const passwordError = document.getElementById("password-error");
+
+const passwordConfirm = document.getElementById("password-confirm");
+const passwordConfirmError = document.getElementById("password-confirm-error");
 
 email.addEventListener("focusout", checkEmail);
 country.addEventListener("change", checkZip);
