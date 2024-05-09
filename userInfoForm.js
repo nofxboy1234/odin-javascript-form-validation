@@ -42,8 +42,7 @@ function checkZip() {
   }
 }
 
-function checkPassword() {
-  // const pattern = "^(CH-)?\\d{4}$";
+function checkPasswordPattern(password) {
   const pattern = "^\\d{4}$";
   const constraint = new RegExp(pattern, "");
 
@@ -56,8 +55,22 @@ function checkPassword() {
   }
 }
 
+function checkPasswordConfirmMatchedPassword() {
+  if (passwordConfirm.value === password.value) {
+    passwordConfirm.classList.remove("invalid");
+    passwordConfirm.classList.add("valid");
+    resetError(passwordConfirmError);
+  } else {
+    showPasswordConfirmError();
+  }
+}
+
+function checkPassword() {
+  checkPasswordPattern(password);
+}
+
 function checkPasswordConfirm() {
-  //
+  checkPasswordConfirmMatchedPassword();
 }
 
 function showEmailError() {
@@ -86,6 +99,14 @@ function showPasswordError() {
   password.classList.remove("valid");
   passwordError.textContent = "Password is not valid";
   passwordError.className = "error active";
+}
+
+function showPasswordConfirmError() {
+  passwordConfirm.classList.add("invalid");
+  passwordConfirm.classList.remove("valid");
+  passwordConfirmError.textContent =
+    "Password does not match the above password";
+  passwordConfirmError.className = "error active";
 }
 
 const form = document.querySelector("form");
@@ -124,6 +145,12 @@ form.addEventListener("submit", (event) => {
 
   if (password.classList.contains("invalid")) {
     showPasswordError();
+    hasErrors = true;
+    event.preventDefault();
+  }
+
+  if (passwordConfirm.classList.contains("invalid")) {
+    showPasswordConfirmError();
     hasErrors = true;
     event.preventDefault();
   }
