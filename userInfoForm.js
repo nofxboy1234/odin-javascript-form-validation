@@ -43,7 +43,8 @@ function checkZip() {
 }
 
 function checkPassword() {
-  const pattern = "^(CH-)?\\d{4}$";
+  // const pattern = "^(CH-)?\\d{4}$";
+  const pattern = "^\\d{4}$";
   const constraint = new RegExp(pattern, "");
 
   if (constraint.test(password.value)) {
