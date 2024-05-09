@@ -42,6 +42,23 @@ function checkZip() {
   }
 }
 
+function checkPassword() {
+  const pattern = "^(CH-)?\\d{4}$";
+  const constraint = new RegExp(pattern, "");
+
+  if (constraint.test(password.value)) {
+    password.classList.remove("invalid");
+    password.classList.add("valid");
+    resetError(passwordError);
+  } else {
+    showError();
+  }
+}
+
+function checkPasswordConfirm() {
+  //
+}
+
 function showError() {
   if (email.validity.valueMissing) {
     emailError.textContent = "Email address is required";
@@ -59,6 +76,11 @@ function showError() {
     country.item(country.selectedIndex).textContent
   }`;
   zipcodeError.className = "error active";
+
+  password.classList.add("invalid");
+  password.classList.remove("valid");
+  passwordError.textContent = "Password is not valid";
+  passwordError.className = "error active";
 }
 
 const form = document.querySelector("form");
@@ -82,7 +104,11 @@ country.addEventListener("change", checkZip);
 zipcode.addEventListener("focusout", checkZip);
 
 form.addEventListener("submit", (event) => {
-  if (!email.validity.valid || zipcode.classList.contains("invalid")) {
+  if (
+    !email.validity.valid ||
+    zipcode.classList.contains("invalid") ||
+    password.classList.contains("invalid")
+  ) {
     showError();
     event.preventDefault();
     return;
@@ -90,3 +116,6 @@ form.addEventListener("submit", (event) => {
 
   alert("Submit to nowhere successful!");
 });
+
+password.addEventListener("focusout", checkPassword);
+passwordConfirm.addEventListener("focusout", checkPasswordConfirm);
