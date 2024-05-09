@@ -2,7 +2,7 @@ function checkEmail() {
   if (email.validity.valid) {
     resetError(emailError);
   } else {
-    showError();
+    showEmailError();
   }
 }
 
@@ -38,7 +38,7 @@ function checkZip() {
     zipcode.classList.add("valid");
     resetError(zipcodeError);
   } else {
-    showError();
+    showZipcodeError();
   }
 }
 
@@ -51,7 +51,7 @@ function checkPassword() {
     password.classList.add("valid");
     resetError(passwordError);
   } else {
-    showError();
+    showPasswordError();
   }
 }
 
@@ -59,7 +59,7 @@ function checkPasswordConfirm() {
   //
 }
 
-function showError() {
+function showEmailError() {
   if (email.validity.valueMissing) {
     emailError.textContent = "Email address is required";
   } else if (email.validity.typeMismatch) {
@@ -69,14 +69,18 @@ function showError() {
   }
 
   emailError.className = "error active";
+}
 
+function showZipcodeError() {
   zipcode.classList.add("invalid");
   zipcode.classList.remove("valid");
   zipcodeError.textContent = `Zipcode is not valid for ${
     country.item(country.selectedIndex).textContent
   }`;
   zipcodeError.className = "error active";
+}
 
+function showPasswordError() {
   password.classList.add("invalid");
   password.classList.remove("valid");
   passwordError.textContent = "Password is not valid";
@@ -104,13 +108,26 @@ country.addEventListener("change", checkZip);
 zipcode.addEventListener("focusout", checkZip);
 
 form.addEventListener("submit", (event) => {
-  if (
-    !email.validity.valid ||
-    zipcode.classList.contains("invalid") ||
-    password.classList.contains("invalid")
-  ) {
-    showError();
+  let hasErrors = false;
+  if (!email.validity.valid) {
+    showEmailError();
+    hasErrors = true;
     event.preventDefault();
+  }
+
+  if (zipcode.classList.contains("invalid")) {
+    showZipcodeError();
+    hasErrors = true;
+    event.preventDefault();
+  }
+
+  if (password.classList.contains("invalid")) {
+    showPasswordError();
+    hasErrors = true;
+    event.preventDefault();
+  }
+
+  if (hasErrors) {
     return;
   }
 
