@@ -1,10 +1,14 @@
 function checkEmail() {
   if (email.validity.valid) {
-    emailError.textContent = "";
-    emailError.className = "error";
+    resetError(emailError);
   } else {
     showError();
   }
+}
+
+function resetError(error) {
+  error.textContent = "";
+  error.className = "error";
 }
 
 function checkZip() {
@@ -32,8 +36,7 @@ function checkZip() {
   if (constraint.test(zipcode.value)) {
     zipcode.classList.remove("invalid");
     zipcode.classList.add("valid");
-    zipcodeError.textContent = "";
-    zipcodeError.className = "error";
+    resetError(zipcodeError);
   } else {
     showError();
   }
